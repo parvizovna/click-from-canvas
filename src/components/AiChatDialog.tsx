@@ -38,10 +38,18 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
     }
   }, [messages]);
 
-  const handleSend = async () => {
-    if (!input.trim() || isLoading) return;
+  const quickQuestions = [
+    "Покажи самые популярные точки для подачи в радиусе 5 км",
+    "Какая погода будет в районе центра через час?",
+    "Какие сегодня мероприятия в городе? (концерты, матчи)",
+    "Позвони пассажиру",
+  ];
 
-    const userMessage: Message = { role: "user", content: input };
+  const handleSend = async (message?: string) => {
+    const textToSend = message || input;
+    if (!textToSend.trim() || isLoading) return;
+
+    const userMessage: Message = { role: "user", content: textToSend };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
@@ -125,7 +133,21 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
           </div>
         </ScrollArea>
 
-        <div className="px-6 py-4 border-t">
+        <div className="px-6 py-4 border-t space-y-3">
+          <div className="flex flex-wrap gap-2">
+            {quickQuestions.map((question, index) => (
+              <Button
+                key={index}
+                variant="outline"
+                size="sm"
+                onClick={() => handleSend(question)}
+                disabled={isLoading}
+                className="text-xs h-8"
+              >
+                {question}
+              </Button>
+            ))}
+          </div>
           <form
             onSubmit={(e) => {
               e.preventDefault();
