@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { TaxiHeader } from "@/components/TaxiHeader";
 import { StatsCard } from "@/components/StatsCard";
 import { OrderCard } from "@/components/OrderCard";
@@ -76,9 +76,10 @@ const TaxiDashboard = () => {
     });
   };
 
-  const newOrders = orders.filter((o) => o.status === "new");
-  const activeOrders = orders.filter((o) => o.status === "active");
-  const completedOrders = orders.filter((o) => o.status === "completed");
+  // Memoize filtered orders to avoid recalculation on every render
+  const newOrders = useMemo(() => orders.filter((o) => o.status === "new"), [orders]);
+  const activeOrders = useMemo(() => orders.filter((o) => o.status === "active"), [orders]);
+  const completedOrders = useMemo(() => orders.filter((o) => o.status === "completed"), [orders]);
 
   return (
     <div className="min-h-screen bg-background">
