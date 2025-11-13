@@ -267,7 +267,7 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
                     <img 
                       src={message.image} 
                       alt="Мем" 
-                      className="mt-3 rounded-lg max-w-full h-auto"
+                      className="mt-3 rounded-lg w-1/3 h-auto"
                     />
                   )}
                 </div>
