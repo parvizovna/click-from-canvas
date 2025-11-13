@@ -327,7 +327,7 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] h-[600px] flex flex-col p-0">
+      <DialogContent className="fixed bottom-0 left-1/2 -translate-x-1/2 translate-y-0 top-auto sm:max-w-[600px] h-[600px] flex flex-col p-0 data-[state=open]:slide-in-from-bottom data-[state=closed]:slide-out-to-bottom rounded-b-none sm:rounded-t-lg">
         <DialogHeader className="px-6 pt-6 pb-4 border-b">
           <DialogTitle className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
