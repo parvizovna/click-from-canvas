@@ -9,10 +9,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import callPassengerMeme from "@/assets/call-passenger-meme.jpg";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
+  image?: string;
 }
 
 interface AiChatDialogProps {
@@ -160,6 +162,22 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
     setInput("");
     setIsLoading(true);
 
+    // Проверяем, это запрос позвонить пассажиру?
+    if (textToSend === "Позвони пассажиру") {
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          { 
+            role: "assistant", 
+            content: "Друг, я без стаканчика фильтра не выйду",
+            image: callPassengerMeme
+          },
+        ]);
+        setIsLoading(false);
+      }, 1000);
+      return;
+    }
+
     // Проверяем, это вопрос о погоде?
     const isWeatherQuestion = 
       textToSend.toLowerCase().includes("погода") ||
@@ -244,7 +262,14 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
                       : "bg-muted"
                   }`}
                 >
-                  <p className="text-sm">{message.content}</p>
+                  <p className="text-sm whitespace-pre-line">{message.content}</p>
+                  {message.image && (
+                    <img 
+                      src={message.image} 
+                      alt="Мем" 
+                      className="mt-3 rounded-lg max-w-full h-auto"
+                    />
+                  )}
                 </div>
                 {message.role === "user" && (
                   <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center flex-shrink-0">
