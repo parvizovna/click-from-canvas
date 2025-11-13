@@ -79,7 +79,7 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
     try {
       // Пытаемся получить данные через CORS proxy
       const proxyUrl = 'https://api.allorigins.win/raw?url=';
-      const targetUrl = encodeURIComponent('https://afisha.yandex.ru/moscow/events');
+      const targetUrl = encodeURIComponent('https://kudamoscow.ru/event/all/today/');
       const response = await fetch(proxyUrl + targetUrl);
       const html = await response.text();
       
@@ -92,7 +92,7 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
       const eventElements = doc.querySelectorAll('[class*="event"]');
       
       eventElements.forEach((element, index) => {
-        if (index < 5) {
+        if (index < 3) {
           const title = element.textContent?.trim();
           if (title && title.length > 10) {
             events.push(title.substring(0, 100));
@@ -101,14 +101,14 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
       });
       
       if (events.length > 0) {
-        return `🎭 Топ-5 мероприятий в Москве сегодня:\n\n${events.map((event, i) => `${i + 1}. ${event}`).join('\n\n')}\n\nПодробнее: https://afisha.yandex.ru/moscow/events`;
+        return `🎭 Топ-3 мероприятий в Москве сегодня:\n\n${events.map((event, i) => `${i + 1}. ${event}`).join('\n\n')}\n\nПодробнее: https://kudamoscow.ru/event/all/today/`;
       }
       
       throw new Error('Не удалось распарсить мероприятия');
     } catch (error) {
       console.error('Ошибка получения мероприятий:', error);
       // Возвращаем заглушку с актуальной информацией
-      return `🎭 Топ-5 мероприятий в Москве сегодня:\n\n1. 🎵 Концерт "Би-2" - Крокус Сити Холл, 20:00\n2. 🎭 Спектакль "Горе от ума" - Малый театр, 19:00\n3. ⚽ Спартак - Зенит - Стадион Открытие Арена, 18:30\n4. 🎨 Выставка "Импрессионизм XXI века" - Третьяковская галерея\n5. 🎪 Цирк на льду "Снежная королева" - Цирк на Цветном бульваре, 19:00\n\nПодробная афиша: https://afisha.yandex.ru/moscow/events`;
+      return `🎭 Топ-3 мероприятий в Москве сегодня:\n\n1. 🎵 Концерт "Би-2" - Крокус Сити Холл, 20:00\n2. 🎭 Спектакль "Горе от ума" - Малый театр, 19:00\n3. ⚽ Спартак - Зенит - Стадион Открытие Арена, 18:30\n\nПодробная афиша: https://kudamoscow.ru/event/all/today/`;
     }
   };
 
