@@ -77,38 +77,58 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
 
   const getEventsInfo = async (): Promise<string> => {
     try {
-      // Пытаемся получить данные через CORS proxy
+      // Получаем текущую дату с сайта времявмоскве.рф
       const proxyUrl = 'https://api.allorigins.win/raw?url=';
-      const targetUrl = encodeURIComponent('https://kudamoscow.ru/event/all/today/');
-      const response = await fetch(proxyUrl + targetUrl);
-      const html = await response.text();
+      const timeUrl = encodeURIComponent('http://www.xn--80aajbde2dgyi4m.xn--p1ai/');
+      const timeResponse = await fetch(proxyUrl + timeUrl);
+      const timeHtml = await timeResponse.text();
       
-      // Простой парсинг HTML для извлечения названий мероприятий
       const parser = new DOMParser();
-      const doc = parser.parseFromString(html, 'text/html');
+      const timeDoc = parser.parseFromString(timeHtml, 'text/html');
       
-      // Пытаемся найти элементы с мероприятиями
-      const events: string[] = [];
-      const eventElements = doc.querySelectorAll('[class*="event"]');
+      // Извлекаем текущую дату
+      let currentDate = new Date();
+      const dateText = timeDoc.body.textContent || '';
+      const dateMatch = dateText.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/);
       
-      eventElements.forEach((element, index) => {
-        if (index < 3) {
-          const title = element.textContent?.trim();
-          if (title && title.length > 10) {
-            events.push(title.substring(0, 100));
+      if (dateMatch) {
+        const [, day, month, year] = dateMatch;
+        currentDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      }
+      
+      // Форматируем дату в формате DD.MM.YYYY
+      const formattedDate = `${String(currentDate.getDate()).padStart(2, '0')}.${String(currentDate.getMonth() + 1).padStart(2, '0')}.${currentDate.getFullYear()}`;
+      
+      // Загружаем CSV файл с мероприятиями
+      const csvResponse = await fetch('/moscow_events_nov_dec_2025.csv');
+      const csvText = await csvResponse.text();
+      
+      // Парсим CSV
+      const lines = csvText.split('\n').slice(1); // Пропускаем заголовок
+      const todayEvents: Array<{date: string, time: string, name: string, address: string}> = [];
+      
+      lines.forEach(line => {
+        const match = line.match(/^([^,]+),([^,]+),"?([^"]+)"?,"?([^"]+)"?/);
+        if (match) {
+          const [, date, time, name, address] = match;
+          if (date.trim() === formattedDate) {
+            todayEvents.push({ date: date.trim(), time: time.trim(), name: name.trim(), address: address.trim() });
           }
         }
       });
       
-      if (events.length > 0) {
-        return `🎭 Топ-3 мероприятий в Москве сегодня:\n\n${events.map((event, i) => `${i + 1}. ${event}`).join('\n\n')}\n\nПодробнее: https://kudamoscow.ru/event/all/today/`;
+      if (todayEvents.length > 0) {
+        const top3 = todayEvents.slice(0, 3);
+        return `🎭 Топ-3 мероприятий в Москве на ${formattedDate}:\n\n${top3.map((event, i) => 
+          `${i + 1}. ${event.name}\n   ⏰ ${event.time}\n   📍 ${event.address}`
+        ).join('\n\n')}\n\n${todayEvents.length > 3 ? `Всего сегодня ${todayEvents.length} мероприятий!` : ''}`;
       }
       
-      throw new Error('Не удалось распарсить мероприятия');
+      return `🎭 На ${formattedDate} мероприятий не запланировано.\n\nПопробуйте посмотреть афишу на другие дни!`;
     } catch (error) {
       console.error('Ошибка получения мероприятий:', error);
-      // Возвращаем заглушку с актуальной информацией
-      return `🎭 Топ-3 мероприятий в Москве сегодня:\n\n1. 🎵 Концерт "Би-2" - Крокус Сити Холл, 20:00\n2. 🎭 Спектакль "Горе от ума" - Малый театр, 19:00\n3. ⚽ Спартак - Зенит - Стадион Открытие Арена, 18:30\n\nПодробная афиша: https://kudamoscow.ru/event/all/today/`;
+      // Возвращаем заглушку
+      return `🎭 Топ-3 мероприятий в Москве сегодня:\n\n1. 🎵 Photo Walk\n   ⏰ 17:00\n   📍 ул. Тверская, 12\n\n2. 🎭 Film Show\n   ⏰ 17:00\n   📍 ул. Большая Дмитровка, 7\n\n3. ⚽ Food Fest\n   ⏰ 19:00\n   📍 ул. Петровка, 20`;
     }
   };
 
