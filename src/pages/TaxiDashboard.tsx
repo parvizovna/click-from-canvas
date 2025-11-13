@@ -17,6 +17,7 @@ import { useToast } from "@/hooks/use-toast";
 
 const TaxiDashboard = () => {
   const [aiChatOpen, setAiChatOpen] = useState(false);
+  const [showMap, setShowMap] = useState(false);
   const { toast } = useToast();
   const [orders, setOrders] = useState([
     {
@@ -81,11 +82,18 @@ const TaxiDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <TaxiHeader onAiChatOpen={() => setAiChatOpen(true)} />
+      <TaxiHeader 
+        onAiChatOpen={() => setAiChatOpen(true)} 
+        onMapOpen={() => setShowMap(!showMap)}
+        showMap={showMap}
+      />
 
-      <main className="container py-6 px-4 space-y-6">
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      {showMap ? (
+        <MapView onAiChatOpen={() => setAiChatOpen(true)} />
+      ) : (
+        <main className="container py-6 px-4 space-y-6">
+          {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <StatsCard
             title="Сегодня заработано"
             value="4,850 ₽"
@@ -141,25 +149,20 @@ const TaxiDashboard = () => {
           />
         </div>
 
-        {/* Orders Tabs */}
-        <Tabs defaultValue="new" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-4 lg:w-[500px]">
-            <TabsTrigger value="map">Карта</TabsTrigger>
-            <TabsTrigger value="new" className="relative">
-              Новые
-              {newOrders.length > 0 && (
-                <span className="ml-2 bg-primary text-primary-foreground rounded-full h-5 w-5 text-xs flex items-center justify-center">
-                  {newOrders.length}
-                </span>
-              )}
-            </TabsTrigger>
-            <TabsTrigger value="active">Активные</TabsTrigger>
-            <TabsTrigger value="history">История</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="map" className="mt-0">
-            <MapView onAiChatOpen={() => setAiChatOpen(true)} />
-          </TabsContent>
+          {/* Orders Tabs */}
+          <Tabs defaultValue="new" className="space-y-4">
+            <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
+              <TabsTrigger value="new" className="relative">
+                Новые
+                {newOrders.length > 0 && (
+                  <span className="ml-2 bg-primary text-primary-foreground rounded-full h-5 w-5 text-xs flex items-center justify-center">
+                    {newOrders.length}
+                  </span>
+                )}
+              </TabsTrigger>
+              <TabsTrigger value="active">Активные</TabsTrigger>
+              <TabsTrigger value="history">История</TabsTrigger>
+            </TabsList>
 
           <TabsContent value="new" className="space-y-4">
             {newOrders.length === 0 ? (
@@ -210,8 +213,9 @@ const TaxiDashboard = () => {
               ))
             )}
           </TabsContent>
-        </Tabs>
-      </main>
+          </Tabs>
+        </main>
+      )}
 
       <AiChatDialog open={aiChatOpen} onOpenChange={setAiChatOpen} />
     </div>

@@ -1,13 +1,15 @@
-import { Menu, MessageSquare, User, Bell } from "lucide-react";
+import { Menu, MessageSquare, User, Bell, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
 
 interface TaxiHeaderProps {
   onAiChatOpen: () => void;
+  onMapOpen: () => void;
+  showMap: boolean;
 }
 
-export const TaxiHeader = ({ onAiChatOpen }: TaxiHeaderProps) => {
+export const TaxiHeader = ({ onAiChatOpen, onMapOpen, showMap }: TaxiHeaderProps) => {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container flex h-16 items-center justify-between px-4">
@@ -24,6 +26,14 @@ export const TaxiHeader = ({ onAiChatOpen }: TaxiHeaderProps) => {
         </div>
 
         <div className="flex items-center gap-2">
+          <Button
+            variant={showMap ? "default" : "outline"}
+            size="icon"
+            onClick={onMapOpen}
+          >
+            <MapPin className="h-5 w-5" />
+          </Button>
+
           <Button
             variant="outline"
             size="icon"
