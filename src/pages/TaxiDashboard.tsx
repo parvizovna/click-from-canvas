@@ -3,6 +3,7 @@ import { TaxiHeader } from "@/components/TaxiHeader";
 import { StatsCard } from "@/components/StatsCard";
 import { OrderCard } from "@/components/OrderCard";
 import { AiChatDialog } from "@/components/AiChatDialog";
+import { MapView } from "@/components/MapView";
 import {
   DollarSign,
   TrendingUp,
@@ -142,7 +143,8 @@ const TaxiDashboard = () => {
 
         {/* Orders Tabs */}
         <Tabs defaultValue="new" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-3 lg:w-[400px]">
+          <TabsList className="grid w-full grid-cols-4 lg:w-[500px]">
+            <TabsTrigger value="map">Карта</TabsTrigger>
             <TabsTrigger value="new" className="relative">
               Новые
               {newOrders.length > 0 && (
@@ -154,6 +156,10 @@ const TaxiDashboard = () => {
             <TabsTrigger value="active">Активные</TabsTrigger>
             <TabsTrigger value="history">История</TabsTrigger>
           </TabsList>
+
+          <TabsContent value="map" className="mt-0">
+            <MapView onAiChatOpen={() => setAiChatOpen(true)} />
+          </TabsContent>
 
           <TabsContent value="new" className="space-y-4">
             {newOrders.length === 0 ? (
