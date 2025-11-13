@@ -44,13 +44,6 @@ export const TaxiHeader = ({ onAiChatOpen, onMapOpen, showMap }: TaxiHeaderProps
             <span className="absolute -top-1 -right-1 h-3 w-3 rounded-full bg-primary animate-pulse" />
           </Button>
 
-          <Button variant="outline" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-[10px]">
-              3
-            </Badge>
-          </Button>
-
           <Button variant="outline" size="icon">
             <User className="h-5 w-5" />
           </Button>
@@ -63,6 +56,13 @@ export const TaxiHeader = ({ onAiChatOpen, onMapOpen, showMap }: TaxiHeaderProps
             </SheetTrigger>
             <SheetContent>
               <nav className="flex flex-col gap-4 mt-8">
+                <Button variant="ghost" className="justify-start relative">
+                  <Bell className="h-5 w-5 mr-2" />
+                  Уведомления
+                  <Badge className="ml-auto h-5 w-5 rounded-full p-0 flex items-center justify-center text-[10px]">
+                    3
+                  </Badge>
+                </Button>
                 <Button variant="ghost" className="justify-start">
                   Главная
                 </Button>
