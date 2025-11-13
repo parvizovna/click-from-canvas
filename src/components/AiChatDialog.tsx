@@ -82,6 +82,18 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
     
     if (!isRatingQuestion) return null;
 
+    // Вопросы о текущем рейтинге пользователя
+    if (
+      lowerQuestion.includes("какой у меня") ||
+      lowerQuestion.includes("мой рейтинг") ||
+      lowerQuestion.includes("узнать рейтинг") ||
+      lowerQuestion.includes("посмотреть рейтинг") ||
+      lowerQuestion.includes("покажи рейтинг")
+    ) {
+      const randomRating = (Math.random() * (5.00 - 4.00) + 4.00).toFixed(2);
+      return `Ваш текущий рейтинг: ${randomRating} ⭐\n\nЭто хороший показатель! Продолжайте в том же духе, чтобы поддерживать высокий уровень сервиса.`;
+    }
+
     // Вопросы о том, что такое рейтинг и как он рассчитывается
     if (
       lowerQuestion.includes("что такое") ||
