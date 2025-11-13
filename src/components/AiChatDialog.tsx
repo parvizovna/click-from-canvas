@@ -118,10 +118,9 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
       });
       
       if (todayEvents.length > 0) {
-        const top3 = todayEvents.slice(0, 3);
-        return `🎭 Топ-3 мероприятий в Москве на ${formattedDate}:\n\n${top3.map((event, i) => 
+        return `🎭 Мероприятия в Москве на ${formattedDate} (${todayEvents.length}):\n\n${todayEvents.map((event, i) => 
           `${i + 1}. ${event.name}\n   ⏰ ${event.time}\n   📍 ${event.address}`
-        ).join('\n\n')}\n\n${todayEvents.length > 3 ? `Всего сегодня ${todayEvents.length} мероприятий!` : ''}`;
+        ).join('\n\n')}`;
       }
       
       return `🎭 На ${formattedDate} мероприятий не запланировано.\n\nПопробуйте посмотреть афишу на другие дни!`;
