@@ -45,6 +45,31 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
     "Позвони пассажиру",
   ];
 
+  const getWeatherInfo = async (): Promise<string> => {
+    try {
+      // Используем wttr.in API для получения погоды в Москве
+      const response = await fetch('https://wttr.in/Moscow?format=j1&lang=ru');
+      const data = await response.json();
+      
+      const current = data.current_condition[0];
+      const temperature = current.temp_C;
+      const feelsLike = current.FeelsLikeC;
+      const description = current.lang_ru?.[0]?.value || current.weatherDesc[0].value;
+      const humidity = current.humidity;
+      const windSpeed = current.windspeedKmph;
+      
+      // Прогноз на ближайший час
+      const hourly = data.weather[0].hourly[0];
+      const nextHourTemp = hourly.tempC;
+      const nextHourDesc = hourly.lang_ru?.[0]?.value || hourly.weatherDesc[0].value;
+      
+      return `Погода ближайший час:\n\n🌡️ Температура: ${nextHourTemp}°C (ощущается как ${feelsLike}°C)\n☁️ Состояние: ${nextHourDesc}\n💧 Влажность: ${humidity}%\n💨 Ветер: ${windSpeed} км/ч\n\nТекущая погода в Москве: ${temperature}°C, ${description}`;
+    } catch (error) {
+      console.error('Ошибка получения погоды:', error);
+      return 'К сожалению, не удалось получить данные о погоде. Попробуйте позже.';
+    }
+  };
+
   const getRatingResponse = (question: string): string | null => {
     const lowerQuestion = question.toLowerCase();
     
@@ -122,6 +147,21 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
+
+    // Проверяем, это вопрос о погоде?
+    const isWeatherQuestion = 
+      textToSend.toLowerCase().includes("погода") ||
+      textToSend === "Какая погода будет в районе центра через час?";
+
+    if (isWeatherQuestion) {
+      const weatherInfo = await getWeatherInfo();
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: weatherInfo },
+      ]);
+      setIsLoading(false);
+      return;
+    }
 
     setTimeout(() => {
       // Проверяем, это вопрос о рейтинге?
