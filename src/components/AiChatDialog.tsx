@@ -134,7 +134,7 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
         </ScrollArea>
 
         <div className="px-6 py-4 border-t space-y-3">
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {quickQuestions.map((question, index) => (
               <Button
                 key={index}
@@ -142,7 +142,7 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
                 size="sm"
                 onClick={() => handleSend(question)}
                 disabled={isLoading}
-                className="text-xs h-8"
+                className="text-xs h-auto py-2 whitespace-normal text-left justify-start"
               >
                 {question}
               </Button>
