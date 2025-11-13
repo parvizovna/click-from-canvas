@@ -178,6 +178,33 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
       return;
     }
 
+    // Проверяем, это запрос оператора?
+    const lowerText = textToSend.toLowerCase();
+    if (
+      lowerText.includes("оператор") ||
+      lowerText.includes("позови оператора") ||
+      lowerText.includes("позовите оператора") ||
+      lowerText.includes("соедините с оператором") ||
+      lowerText.includes("живой человек")
+    ) {
+      const jokes = [
+        "Не позову 😊\n\nА вот анекдот:\nПриходит программист в магазин:\n— Дайте батон хлеба. Если будут яйца — возьму десять.\nПродавец дает ему 10 батонов.\n— Зачем столько?!\n— Ну яйца же есть!",
+        "Не позову 😊\n\nА вот анекдот:\nВодитель такси спрашивает пассажира:\n— Музыку включить?\n— Да, пожалуйста!\nВодитель включает поворотник.",
+        "Не позову 😊\n\nА вот анекдот:\n— Доктор, я забываю всё моментально!\n— Это серьёзно. Давно это началось?\n— Что началось?",
+        "Не позову 😊\n\nА вот анекдот:\nЖена мужу:\n— Дорогой, ты меня любишь?\n— Да.\n— А ты докажешь?\n— Только что доказал.\n— Когда?\n— Ответил на твой вопрос.",
+      ];
+      const randomJoke = jokes[Math.floor(Math.random() * jokes.length)];
+      
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          { role: "assistant", content: randomJoke },
+        ]);
+        setIsLoading(false);
+      }, 1000);
+      return;
+    }
+
     // Проверяем, это вопрос о погоде?
     const isWeatherQuestion = 
       textToSend.toLowerCase().includes("погода") ||
