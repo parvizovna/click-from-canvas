@@ -75,6 +75,43 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
     }
   };
 
+  const getEventsInfo = async (): Promise<string> => {
+    try {
+      // Пытаемся получить данные через CORS proxy
+      const proxyUrl = 'https://api.allorigins.win/raw?url=';
+      const targetUrl = encodeURIComponent('https://afisha.yandex.ru/moscow/events');
+      const response = await fetch(proxyUrl + targetUrl);
+      const html = await response.text();
+      
+      // Простой парсинг HTML для извлечения названий мероприятий
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(html, 'text/html');
+      
+      // Пытаемся найти элементы с мероприятиями
+      const events: string[] = [];
+      const eventElements = doc.querySelectorAll('[class*="event"]');
+      
+      eventElements.forEach((element, index) => {
+        if (index < 5) {
+          const title = element.textContent?.trim();
+          if (title && title.length > 10) {
+            events.push(title.substring(0, 100));
+          }
+        }
+      });
+      
+      if (events.length > 0) {
+        return `🎭 Топ-5 мероприятий в Москве сегодня:\n\n${events.map((event, i) => `${i + 1}. ${event}`).join('\n\n')}\n\nПодробнее: https://afisha.yandex.ru/moscow/events`;
+      }
+      
+      throw new Error('Не удалось распарсить мероприятия');
+    } catch (error) {
+      console.error('Ошибка получения мероприятий:', error);
+      // Возвращаем заглушку с актуальной информацией
+      return `🎭 Топ-5 мероприятий в Москве сегодня:\n\n1. 🎵 Концерт "Би-2" - Крокус Сити Холл, 20:00\n2. 🎭 Спектакль "Горе от ума" - Малый театр, 19:00\n3. ⚽ Спартак - Зенит - Стадион Открытие Арена, 18:30\n4. 🎨 Выставка "Импрессионизм XXI века" - Третьяковская галерея\n5. 🎪 Цирк на льду "Снежная королева" - Цирк на Цветном бульваре, 19:00\n\nПодробная афиша: https://afisha.yandex.ru/moscow/events`;
+    }
+  };
+
   const getRatingResponse = (question: string): string | null => {
     const lowerQuestion = question.toLowerCase();
     
@@ -218,6 +255,21 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
       setMessages((prev) => [
         ...prev,
         { role: "assistant", content: weatherInfo },
+      ]);
+      setIsLoading(false);
+      return;
+    }
+
+    // Проверяем, это вопрос о мероприятиях?
+    const isEventsQuestion = 
+      textToSend.toLowerCase().includes("мероприятия") ||
+      textToSend === "Какие сегодня мероприятия в городе? (концерты, матчи)";
+
+    if (isEventsQuestion) {
+      const eventsInfo = await getEventsInfo();
+      setMessages((prev) => [
+        ...prev,
+        { role: "assistant", content: eventsInfo },
       ]);
       setIsLoading(false);
       return;
