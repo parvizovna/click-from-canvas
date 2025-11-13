@@ -41,7 +41,6 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
   }, [messages]);
 
   const quickQuestions = [
-    "Покажи самые популярные точки для подачи в радиусе 5 км",
     "Какая погода будет в районе центра через час?",
     "Какие сегодня мероприятия в городе? (концерты, матчи)",
     "Позвони пассажиру",
