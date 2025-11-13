@@ -69,62 +69,62 @@ export const MapView = ({ onAiChatOpen }: MapViewProps) => {
       <Button
         onClick={onAiChatOpen}
         size="icon"
-        className="absolute bottom-[280px] left-4 h-16 w-16 rounded-full bg-secondary text-secondary-foreground shadow-2xl hover:bg-secondary/90 z-20 p-0 overflow-hidden"
+        className="absolute bottom-[140px] left-4 h-16 w-16 rounded-full bg-secondary text-secondary-foreground shadow-2xl hover:bg-secondary/90 z-20 p-0 overflow-hidden"
       >
         <img src={aiTaxiIcon} alt="AI Taxi Assistant" className="h-full w-full object-cover" />
       </Button>
 
       {/* Bottom Info Panel */}
-      <div className="absolute bottom-0 left-0 right-0 bg-secondary/95 backdrop-blur-sm text-secondary-foreground p-4 space-y-3 rounded-t-3xl z-10">
+      <div className="absolute bottom-0 left-0 right-0 bg-secondary/95 backdrop-blur-sm text-secondary-foreground p-2 space-y-1.5 rounded-t-2xl z-10">
         {/* Date */}
-        <h3 className="text-xl font-bold">Пятница, 8 ноября</h3>
+        <h3 className="text-base font-bold">Пятница, 8 ноября</h3>
 
         {/* Priority and Orders Cards */}
-        <div className="grid grid-cols-2 gap-3">
-          <Card className="bg-secondary border-2 border-destructive p-4 rounded-2xl">
+        <div className="grid grid-cols-2 gap-1.5">
+          <Card className="bg-secondary border-2 border-destructive p-2 rounded-xl">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="bg-primary rounded-full p-2">
-                  <div className="h-6 w-6 bg-primary-foreground rounded-sm" />
+              <div className="flex items-center gap-2">
+                <div className="bg-primary rounded-full p-1">
+                  <div className="h-4 w-4 bg-primary-foreground rounded-sm" />
                 </div>
                 <div>
-                  <div className="text-sm text-muted-foreground">Приоритет</div>
-                  <div className="text-2xl font-bold">-2</div>
+                  <div className="text-xs text-muted-foreground">Приоритет</div>
+                  <div className="text-lg font-bold">-2</div>
                 </div>
               </div>
-              <div className="bg-destructive text-destructive-foreground rounded-full p-2">
-                <span className="text-xl font-bold">!</span>
+              <div className="bg-destructive text-destructive-foreground rounded-full p-1">
+                <span className="text-sm font-bold">!</span>
               </div>
             </div>
           </Card>
 
-          <Card className="bg-secondary/50 border border-border/20 p-4 rounded-2xl">
-            <div className="flex items-center gap-3">
-              <div className="bg-blue-500 rounded-xl p-3">
-                <div className="flex gap-1">
-                  <div className="w-1 h-6 bg-white rounded" />
-                  <div className="w-1 h-4 bg-white rounded mt-2" />
-                  <div className="w-1 h-5 bg-white rounded mt-1" />
+          <Card className="bg-secondary/50 border border-border/20 p-2 rounded-xl">
+            <div className="flex items-center gap-2">
+              <div className="bg-blue-500 rounded-lg p-1.5">
+                <div className="flex gap-0.5">
+                  <div className="w-0.5 h-4 bg-white rounded" />
+                  <div className="w-0.5 h-3 bg-white rounded mt-1" />
+                  <div className="w-0.5 h-3.5 bg-white rounded mt-0.5" />
                 </div>
               </div>
               <div>
-                <div className="text-sm text-muted-foreground">О заказов</div>
-                <div className="text-xl font-bold">0 ₽</div>
+                <div className="text-xs text-muted-foreground">О заказов</div>
+                <div className="text-base font-bold">0 ₽</div>
               </div>
             </div>
           </Card>
         </div>
 
         {/* Bonus Schedule */}
-        <Card className="bg-secondary/50 border border-border/20 p-4 rounded-2xl">
+        <Card className="bg-secondary/50 border border-border/20 p-2 rounded-xl">
           <div className="flex justify-between items-center">
             <div>
-              <div className="text-sm text-muted-foreground">Расписание бонусов</div>
-              <div className="text-lg font-semibold">17:10 — 18:49</div>
+              <div className="text-xs text-muted-foreground">Расписание бонусов</div>
+              <div className="text-sm font-semibold">17:10 — 18:49</div>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold">от 870 ₽</div>
-              <div className="text-xs text-muted-foreground">за заказ</div>
+              <div className="text-lg font-bold">от 870 ₽</div>
+              <div className="text-[10px] text-muted-foreground">за заказ</div>
             </div>
           </div>
         </Card>
