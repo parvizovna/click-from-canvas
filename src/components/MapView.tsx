@@ -1,6 +1,7 @@
-import { Bot, Camera, Navigation } from "lucide-react";
+import { Camera, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import aiTaxiIcon from "@/assets/ai-taxi-icon.png";
 
 interface MapViewProps {
   onAiChatOpen: () => void;
@@ -68,9 +69,9 @@ export const MapView = ({ onAiChatOpen }: MapViewProps) => {
       <Button
         onClick={onAiChatOpen}
         size="icon"
-        className="absolute bottom-[280px] left-4 h-16 w-16 rounded-full bg-secondary text-secondary-foreground shadow-2xl hover:bg-secondary/90 z-20"
+        className="absolute bottom-[280px] left-4 h-16 w-16 rounded-full bg-secondary text-secondary-foreground shadow-2xl hover:bg-secondary/90 z-20 p-0 overflow-hidden"
       >
-        <Bot className="h-8 w-8" />
+        <img src={aiTaxiIcon} alt="AI Taxi Assistant" className="h-full w-full object-cover" />
       </Button>
 
       {/* Bottom Info Panel */}
