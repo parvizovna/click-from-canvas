@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Camera, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -7,23 +8,17 @@ interface MapViewProps {
   onAiChatOpen: () => void;
 }
 
-export const MapView = ({ onAiChatOpen }: MapViewProps) => {
+export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
   return (
     <div className="relative w-full h-[calc(100vh-80px)] overflow-hidden">
-      {/* Map Background - Purple gradient */}
+      {/* Map Background - Simplified pattern for better performance */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900">
-        {/* Map pattern overlay */}
-        <div className="absolute inset-0 opacity-30">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="map-pattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                <path d="M 10 50 Q 30 30, 50 50 T 90 50" stroke="rgba(255,255,255,0.1)" strokeWidth="2" fill="none"/>
-                <path d="M 50 10 Q 30 30, 50 50 T 50 90" stroke="rgba(255,255,255,0.1)" strokeWidth="2" fill="none"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#map-pattern)" />
-          </svg>
-        </div>
+        {/* Simplified grid pattern */}
+        <div className="absolute inset-0 opacity-20" 
+          style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,255,255,0.1) 50px, rgba(255,255,255,0.1) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,0.1) 50px, rgba(255,255,255,0.1) 51px)'
+          }}
+        />
 
         {/* Location markers */}
         <div className="absolute top-[20%] left-[30%] bg-white rounded-full p-2 shadow-lg">
@@ -131,4 +126,6 @@ export const MapView = ({ onAiChatOpen }: MapViewProps) => {
       </div>
     </div>
   );
-};
+});
+
+MapView.displayName = "MapView";

@@ -6,7 +6,15 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TaxiDashboard from "./pages/TaxiDashboard";
 import NotFound from "./pages/NotFound";
 
-const queryClient = new QueryClient();
+// Create QueryClient outside component to avoid recreating on every render
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60 * 1000, // 1 minute
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
