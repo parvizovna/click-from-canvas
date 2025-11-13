@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Bot, User, Loader2 } from "lucide-react";
+import { Send, Bot, User, Loader2, Trash2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -23,16 +23,20 @@ interface AiChatDialogProps {
 }
 
 export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      role: "assistant",
-      content:
-        "Здравствуйте! Я AI-помощник для водителей такси. Могу помочь с маршрутами, советами по работе, ответить на вопросы о заказах и многое другое. Чем могу помочь?",
-    },
-  ]);
+  const initialMessage = {
+    role: "assistant" as const,
+    content:
+      "Здравствуйте! Я AI-помощник для водителей такси. Могу помочь с маршрутами, советами по работе, ответить на вопросы о заказах и многое другое. Чем могу помочь?",
+  };
+  
+  const [messages, setMessages] = useState<Message[]>([initialMessage]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const handleClearHistory = () => {
+    setMessages([initialMessage]);
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -254,16 +258,27 @@ export const AiChatDialog = ({ open, onOpenChange }: AiChatDialogProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[600px] h-[600px] flex flex-col p-0">
         <DialogHeader className="px-6 pt-6 pb-4 border-b">
-          <DialogTitle className="flex items-center gap-2">
-            <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <Bot className="h-6 w-6 text-primary" />
-            </div>
-            <div>
-              <div>AI Помощник Водителя</div>
-              <div className="text-sm font-normal text-muted-foreground">
-                Всегда онлайн
+          <DialogTitle className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                <Bot className="h-6 w-6 text-primary" />
+              </div>
+              <div>
+                <div>AI Помощник Водителя</div>
+                <div className="text-sm font-normal text-muted-foreground">
+                  Всегда онлайн
+                </div>
               </div>
             </div>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={handleClearHistory}
+              disabled={isLoading || messages.length <= 1}
+              title="Очистить историю чата"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
           </DialogTitle>
         </DialogHeader>
 
