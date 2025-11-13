@@ -69,7 +69,7 @@ export const MapView = ({ onAiChatOpen }: MapViewProps) => {
       <Button
         onClick={onAiChatOpen}
         size="icon"
-        className="absolute bottom-[180px] left-6 h-16 w-16 rounded-full bg-secondary text-secondary-foreground shadow-2xl hover:bg-secondary/90 z-20 p-0 overflow-hidden hover:scale-110 transition-all duration-300"
+        className="absolute bottom-[180px] left-6 h-16 w-16 rounded-full bg-secondary text-secondary-foreground shadow-[0_0_40px_rgba(251,191,36,0.6),0_10px_30px_rgba(0,0,0,0.3)] hover:bg-secondary/90 hover:shadow-[0_0_50px_rgba(251,191,36,0.8),0_10px_40px_rgba(0,0,0,0.4)] z-20 p-0 overflow-hidden hover:scale-110 transition-all duration-300"
       >
         <img src={aiTaxiIcon} alt="AI Taxi Assistant" className="h-full w-full object-cover" />
       </Button>
