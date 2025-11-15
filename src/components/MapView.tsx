@@ -74,7 +74,7 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
       {/* Bottom Info Panel */}
       <div className="absolute bottom-0 left-0 right-0 bg-secondary/95 backdrop-blur-sm text-secondary-foreground p-2 space-y-1.5 rounded-t-2xl z-10">
         {/* Date */}
-        <h3 className="text-base font-bold">Пятница, 8 ноября</h3>
+        <h3 className="text-base font-bold text-gray-100">Пятница, 8 ноября</h3>
 
         {/* Priority and Orders Cards */}
         <div className="grid grid-cols-2 gap-1.5">
@@ -85,8 +85,8 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
                   <div className="h-4 w-4 bg-primary-foreground rounded-sm" />
                 </div>
                 <div>
-                  <div className="text-xs text-muted-foreground">Приоритет</div>
-                  <div className="text-lg font-bold">-2</div>
+                  <div className="text-xs text-gray-300">Приоритет</div>
+                  <div className="text-lg font-bold text-gray-100">-2</div>
                 </div>
               </div>
               <div className="bg-destructive text-destructive-foreground rounded-full p-1">
@@ -105,8 +105,8 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
                 </div>
               </div>
               <div>
-                <div className="text-xs">О заказов</div>
-                <div className="text-base font-bold">0 ₽</div>
+                <div className="text-xs text-gray-300">О заказов</div>
+                <div className="text-base font-bold text-gray-100">0 ₽</div>
               </div>
             </div>
           </Card>
@@ -116,12 +116,12 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
         <Card className="bg-secondary/50 border border-border/20 p-2 rounded-xl">
           <div className="flex justify-between items-center">
             <div>
-              <div className="text-xs">Расписание бонусов</div>
-              <div className="text-sm font-semibold">17:10 — 18:49</div>
+              <div className="text-xs text-gray-300">Расписание бонусов</div>
+              <div className="text-sm font-semibold text-gray-100">17:10 — 18:49</div>
             </div>
             <div className="text-right">
-              <div className="text-lg font-bold">от 870 ₽</div>
-              <div className="text-[10px]">за заказ</div>
+              <div className="text-lg font-bold text-gray-100">от 870 ₽</div>
+              <div className="text-[10px] text-gray-300">за заказ</div>
             </div>
           </div>
         </Card>
