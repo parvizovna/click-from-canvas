@@ -1,14 +1,19 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { Camera, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import aiTaxiIcon from "@/assets/ai-taxi-icon.png";
+import { animationConfig, updateSmoothness } from "@/config/animation";
 
 interface MapViewProps {
   onAiChatOpen: () => void;
 }
 
 export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
+  useEffect(() => {
+    updateSmoothness(animationConfig.smoothness);
+  }, []);
+
   return (
     <div className="relative w-full h-[calc(100vh-80px)] overflow-hidden">
       {/* Map Background - Simplified pattern for better performance */}
@@ -66,7 +71,10 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
       <Button
         onClick={onAiChatOpen}
         size="icon"
-        className="absolute bottom-[180px] left-6 h-16 w-16 rounded-full bg-secondary text-secondary-foreground shadow-[0_0_40px_rgba(251,191,36,0.6),0_10px_30px_rgba(0,0,0,0.3)] hover:bg-secondary/90 hover:shadow-[0_0_50px_rgba(251,191,36,0.8),0_10px_40px_rgba(0,0,0,0.4)] z-20 p-0 overflow-hidden hover:scale-110 transition-all duration-300"
+        className="absolute bottom-[180px] left-6 h-16 w-16 rounded-full bg-secondary text-secondary-foreground shadow-[0_0_40px_rgba(251,191,36,0.6),0_10px_30px_rgba(0,0,0,0.3)] hover:shadow-[0_0_50px_rgba(251,191,36,0.8),0_10px_40px_rgba(0,0,0,0.4)] z-20 p-0 overflow-hidden hover:-translate-y-1 hover:scale-105"
+        style={{
+          transition: `background-color var(--smoothness), transform var(--smoothness), box-shadow var(--smoothness)`
+        }}
       >
         <img src={aiTaxiIcon} alt="AI Taxi Assistant" className="h-full w-full object-cover" />
       </Button>
