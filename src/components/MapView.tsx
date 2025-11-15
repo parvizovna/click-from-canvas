@@ -12,7 +12,7 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
   return (
     <div className="relative w-full h-[calc(100vh-80px)] overflow-hidden">
       {/* Map Background - Simplified pattern for better performance */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/5 via-purple-700/5 to-purple-900/5">
+      <div className="absolute inset-0 bg-gradient-to-br from-purple-600/60 via-purple-700/60 to-purple-900/60">
         {/* Simplified grid pattern */}
         <div
           className="absolute inset-0 opacity-20"
