@@ -83,7 +83,7 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
                   <div className="h-4 w-4 bg-primary-foreground rounded-sm" />
                 </div>
                 <div>
-                  <div className="text-xs text-muted-foreground">Приоритет</div>
+                  <div className="text-xs">Приоритет</div>
                   <div className="text-lg font-bold">-2</div>
                 </div>
               </div>
@@ -103,7 +103,7 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
                 </div>
               </div>
               <div>
-                <div className="text-xs text-muted-foreground">О заказов</div>
+                <div className="text-xs">О заказов</div>
                 <div className="text-base font-bold">0 ₽</div>
               </div>
             </div>
@@ -114,12 +114,12 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
         <Card className="bg-secondary/50 border border-border/20 p-2 rounded-xl">
           <div className="flex justify-between items-center">
             <div>
-              <div className="text-xs text-muted-foreground">Расписание бонусов</div>
+              <div className="text-xs">Расписание бонусов</div>
               <div className="text-sm font-semibold">17:10 — 18:49</div>
             </div>
             <div className="text-right">
               <div className="text-lg font-bold">от 870 ₽</div>
-              <div className="text-[10px] text-muted-foreground">за заказ</div>
+              <div className="text-[10px]">за заказ</div>
             </div>
           </div>
         </Card>
