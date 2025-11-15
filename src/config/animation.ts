@@ -1,6 +1,6 @@
 export const animationConfig = {
   smoothness: "0.3s",
-  pulseDuration: "1s",
+  pulseDuration: "2s",
   pulseEnabled: true,
 };
 
