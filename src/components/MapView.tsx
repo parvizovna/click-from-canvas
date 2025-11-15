@@ -14,9 +14,11 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
       {/* Map Background - Simplified pattern for better performance */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-purple-700 to-purple-900">
         {/* Simplified grid pattern */}
-        <div className="absolute inset-0 opacity-20" 
+        <div
+          className="absolute inset-0 opacity-20"
           style={{
-            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,255,255,0.1) 50px, rgba(255,255,255,0.1) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,0.1) 50px, rgba(255,255,255,0.1) 51px)'
+            backgroundImage:
+              "repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,255,255,0.1) 50px, rgba(255,255,255,0.1) 51px), repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,0.1) 50px, rgba(255,255,255,0.1) 51px)",
           }}
         />
 
@@ -83,7 +85,7 @@ export const MapView = memo(({ onAiChatOpen }: MapViewProps) => {
                   <div className="h-4 w-4 bg-primary-foreground rounded-sm" />
                 </div>
                 <div>
-                  <div className="text-xs">Приоритет</div>
+                  <div className="text-xs text-muted-foreground">Приоритет</div>
                   <div className="text-lg font-bold">-2</div>
                 </div>
               </div>
