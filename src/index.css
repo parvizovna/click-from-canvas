@@ -10,6 +10,7 @@ All colors MUST be HSL.
   :root {
     /* Animation config */
     --smoothness: 0.3s;
+    --pulse-duration: 2s;
     
     --background: 220 15% 97%;
     --foreground: 220 15% 15%;
