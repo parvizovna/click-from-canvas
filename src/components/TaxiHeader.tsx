@@ -2,6 +2,8 @@ import { Menu, MessageSquare, User, Bell, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 interface TaxiHeaderProps {
   onAiChatOpen: () => void;
@@ -10,6 +12,14 @@ interface TaxiHeaderProps {
 }
 
 export const TaxiHeader = ({ onAiChatOpen, onMapOpen, showMap }: TaxiHeaderProps) => {
+  const navigate = useNavigate();
+  const [sheetOpen, setSheetOpen] = useState(false);
+
+  const handleNavigation = (path: string) => {
+    navigate(path);
+    setSheetOpen(false);
+  };
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container flex h-16 items-center justify-between px-4">
@@ -48,7 +58,7 @@ export const TaxiHeader = ({ onAiChatOpen, onMapOpen, showMap }: TaxiHeaderProps
             <User className="h-5 w-5" />
           </Button>
 
-          <Sheet>
+          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">
                 <Menu className="h-5 w-5" />
@@ -63,13 +73,13 @@ export const TaxiHeader = ({ onAiChatOpen, onMapOpen, showMap }: TaxiHeaderProps
                     3
                   </Badge>
                 </Button>
-                <Button variant="ghost" className="justify-start">
+                <Button variant="ghost" className="justify-start" onClick={() => handleNavigation("/")}>
                   Главная
                 </Button>
-                <Button variant="ghost" className="justify-start">
+                <Button variant="ghost" className="justify-start" onClick={() => handleNavigation("/")}>
                   Заказы
                 </Button>
-                <Button variant="ghost" className="justify-start">
+                <Button variant="ghost" className="justify-start" onClick={() => handleNavigation("/history")}>
                   История
                 </Button>
                 <Button variant="ghost" className="justify-start">
