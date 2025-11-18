@@ -1,4 +1,4 @@
-import { MapPin, DollarSign, Star, User } from "lucide-react";
+import { MapPin, Star, User } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 interface HistoryOrderCardProps {
@@ -65,10 +65,7 @@ export const HistoryOrderCard = ({
         </div>
 
         <div className="flex items-center justify-between pt-4 border-t">
-          <div className="flex items-center gap-1">
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
-            <span className="font-semibold text-lg">{price} ₽</span>
-          </div>
+          <span className="font-semibold text-lg">{price} ₽</span>
         </div>
       </div>
     </Card>
